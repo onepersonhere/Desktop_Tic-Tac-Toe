@@ -352,6 +352,12 @@ files:
 - name: src/tictactoe/Status.java
   visible: true
   learner_created: true
+- name: src/tictactoe/Count.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/174/stages/898/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 18 Jun 2021 00:58:32 UTC
+record: 2

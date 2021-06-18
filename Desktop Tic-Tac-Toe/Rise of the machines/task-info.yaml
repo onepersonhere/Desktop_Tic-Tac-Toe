@@ -325,6 +325,350 @@ files:
         }
     }
   learner_created: false
+- name: src/tictactoe/Count.java
+  visible: true
+  text: |
+    package tictactoe;
+
+    import javax.swing.*;
+
+    public class Count {
+        private static int count = 0;
+
+        public static int getCount() {
+            return count;
+        }
+
+        public static void setCount(int count) {
+            Count.count = count;
+        }
+
+        public static void addCount(){
+            JLabel status = Status.getStatus();
+            Board p = TicTacToe.getP();
+
+            Count.count += 1;
+            if(count == 9){
+                status.setText("Draw");
+            }
+        }
+    }
+  learner_created: true
+- name: src/tictactoe/Board.java
+  visible: true
+  text: |
+    package tictactoe;
+
+    import javax.swing.*;
+    import java.awt.*;
+
+    public class Board extends JPanel {
+
+        private Button a1 = new Button("ButtonA1", "A1");
+        private Button a2 = new Button("ButtonA2", "A2");
+        private Button a3 = new Button("ButtonA3", "A3");
+        private Button b1 = new Button("ButtonB1", "B1");
+        private Button b2 = new Button("ButtonB2", "B2");
+        private Button b3 = new Button("ButtonB3", "B3");
+        private Button c1 = new Button("ButtonC1", "C1");
+        private Button c2 = new Button("ButtonC2", "C2");
+        private Button c3 = new Button("ButtonC3", "C3");
+
+        public Board() {
+            setLayout(new GridLayout(3,3));
+            setPreferredSize(new Dimension(600,600));
+            //setBackground(Color.GREEN);
+            cells();
+        }
+        private void cells(){
+            add(a3);add(b3);add(c3);
+            add(a2);add(b2);add(c2);
+            add(a1);add(b1);add(c1);
+        }
+        public void RESET(){
+            a1.resetText();
+            a2.resetText();
+            a3.resetText();
+            b1.resetText();
+            b2.resetText();
+            b3.resetText();
+            c1.resetText();
+            c2.resetText();
+            c3.resetText();
+        }
+        public void DISABLEALL(){
+            a1.setEnabled(false);
+            a2.setEnabled(false);
+            a3.setEnabled(false);
+            b1.setEnabled(false);
+            b2.setEnabled(false);
+            b3.setEnabled(false);
+            c1.setEnabled(false);
+            c2.setEnabled(false);
+            c3.setEnabled(false);
+        }
+        public void DISABLEOCUPPIED(){
+            if(!a1.getText().equals(" ")){
+                a1.setEnabled(false);
+            }
+            if(!a2.getText().equals(" ")){
+                a2.setEnabled(false);
+            }
+            if(!a3.getText().equals(" ")){
+                a3.setEnabled(false);
+            }
+            if(!b1.getText().equals(" ")){
+                b1.setEnabled(false);
+            }
+            if(!b2.getText().equals(" ")){
+                b2.setEnabled(false);
+            }
+            if(!b3.getText().equals(" ")){
+                b3.setEnabled(false);
+            }
+            if(!c1.getText().equals(" ")){
+                c1.setEnabled(false);
+            }
+            if(!c2.getText().equals(" ")){
+                c2.setEnabled(false);
+            }
+            if(!c3.getText().equals(" ")){
+                c3.setEnabled(false);
+            }
+
+        }
+        public void ENABLE(){
+            a1.setEnabled(true);
+            a2.setEnabled(true);
+            a3.setEnabled(true);
+            b1.setEnabled(true);
+            b2.setEnabled(true);
+            b3.setEnabled(true);
+            c1.setEnabled(true);
+            c2.setEnabled(true);
+            c3.setEnabled(true);
+        }
+        public String getA1() {
+            return a1.getText();
+        }
+
+        public String getA2() {
+            return a2.getText();
+        }
+
+        public String getA3() {
+            return a3.getText();
+        }
+
+        public String getB1() {
+            return b1.getText();
+        }
+
+        public String getB2() {
+            return b2.getText();
+        }
+
+        public String getB3() {
+            return b3.getText();
+        }
+
+        public String getC1() {
+            return c1.getText();
+        }
+
+        public String getC2() {
+            return c2.getText();
+        }
+
+        public String getC3() {
+            return c3.getText();
+        }
+    }
+  learner_created: true
+- name: src/tictactoe/Button.java
+  visible: true
+  text: |
+    package tictactoe;
+
+    import javax.swing.*;
+    import java.awt.*;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
+
+    public class Button extends JButton {
+        public Button(String buttonName, String coord){
+            setName(buttonName);
+            setFocusPainted(false);
+            setText(" ");
+            setFont(new Font("Arial", Font.BOLD, 80));
+
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    //change this part to correspond to the count
+                    int count = Count.getCount();
+                    if(getText().equals(" ") && count % 2 == 0) {
+                        setText("X");
+                        checkStatus();
+                        Count.addCount();
+                    }
+                    if(getText().equals(" ") && count % 2 != 0){
+                        setText("O");
+                        checkStatus();
+                        Count.addCount();
+                    }
+                }
+            });
+        }
+        private void checkStatus(){
+            JLabel status = Status.getStatus();
+            Board p = TicTacToe.getP();
+
+            status.setText("Game in progress");
+            if(p.getA1().equals(p.getA2()) && p.getA2().equals(p.getA3())){
+                if(p.getA1().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getA1().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getB1().equals(p.getB2()) && p.getB2().equals(p.getB3())){
+                if(p.getB1().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getB1().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getC1().equals(p.getC2()) && p.getC2().equals(p.getC3())){
+                if(p.getC1().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getC1().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getA1().equals(p.getB1()) && p.getB1().equals(p.getC1())){
+                if(p.getA1().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getA1().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getA2().equals(p.getB2()) && p.getB2().equals(p.getC2())){
+                if(p.getA2().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getA2().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getA3().equals(p.getB3()) && p.getB3().equals(p.getC3())){
+                if(p.getA3().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getA3().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getA1().equals(p.getB2()) && p.getB2().equals(p.getC3())){
+                if(p.getA1().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getA1().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+            if(p.getA3().equals(p.getB2()) && p.getB2().equals(p.getC1())){
+                if(p.getA3().equals("X")) {
+                    status.setText("X wins");
+                    p.DISABLEALL();
+                }
+                if(p.getA3().equals("O")){
+                    status.setText("O wins");
+                    p.DISABLEALL();
+                }
+            }
+        }
+        public void resetText(){
+            setText(" ");
+        }
+    }
+  learner_created: true
+- name: src/tictactoe/Status.java
+  visible: true
+  text: |
+    package tictactoe;
+
+    import javax.swing.*;
+    import java.awt.*;
+    import java.awt.event.ActionEvent;
+    import java.awt.event.ActionListener;
+
+    public class Status extends JPanel {
+        private static JLabel status = new JLabel();
+
+        public Status(){
+            setPreferredSize(new Dimension(600,35));
+            setBackground(Color.GREEN);
+
+            setLayout(new BorderLayout(5,5));
+
+            JButton reset = new JButton();
+            reset(reset);
+            add(reset, BorderLayout.EAST);
+
+            String statustxt = "Game is not started";
+            status(status, statustxt);
+            add(status, BorderLayout.WEST);
+
+        }
+
+        private void status(JLabel status, String statustxt){
+            status.setName("LabelStatus");
+            status.setText(statustxt);
+            status.setBounds(2, 0, 100, 30);
+        }
+
+        private void reset(JButton reset){
+            reset.setName("ButtonReset");
+            reset.setText("Reset");
+            reset.setFocusPainted(false);
+            reset.setPreferredSize(new Dimension(75,30));
+            reset.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Board p = TicTacToe.getP();
+                    p.RESET();
+                    p.ENABLE();
+                    Count.setCount(0);
+                    status.setText("Game is not started");
+                }
+            });
+        }
+
+        public static JLabel getStatus() {
+            return status;
+        }
+
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/174/stages/899/implement#comment
 status: Unchecked
 record: -1

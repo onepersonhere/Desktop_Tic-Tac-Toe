@@ -20,9 +20,7 @@ public class TicTacToe extends JFrame {
     public static Board getP(){
         return p;
     }
-    public void setP(Board p){
-        this.p = p;
-    }
+
 
 
 }

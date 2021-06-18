@@ -37,5 +37,91 @@ public class Board extends JPanel {
         c2.resetText();
         c3.resetText();
     }
+    public void DISABLEALL(){
+        a1.setEnabled(false);
+        a2.setEnabled(false);
+        a3.setEnabled(false);
+        b1.setEnabled(false);
+        b2.setEnabled(false);
+        b3.setEnabled(false);
+        c1.setEnabled(false);
+        c2.setEnabled(false);
+        c3.setEnabled(false);
+    }
+    public void DISABLEOCUPPIED(){
+        if(!a1.getText().equals(" ")){
+            a1.setEnabled(false);
+        }
+        if(!a2.getText().equals(" ")){
+            a2.setEnabled(false);
+        }
+        if(!a3.getText().equals(" ")){
+            a3.setEnabled(false);
+        }
+        if(!b1.getText().equals(" ")){
+            b1.setEnabled(false);
+        }
+        if(!b2.getText().equals(" ")){
+            b2.setEnabled(false);
+        }
+        if(!b3.getText().equals(" ")){
+            b3.setEnabled(false);
+        }
+        if(!c1.getText().equals(" ")){
+            c1.setEnabled(false);
+        }
+        if(!c2.getText().equals(" ")){
+            c2.setEnabled(false);
+        }
+        if(!c3.getText().equals(" ")){
+            c3.setEnabled(false);
+        }
 
+    }
+    public void ENABLE(){
+        a1.setEnabled(true);
+        a2.setEnabled(true);
+        a3.setEnabled(true);
+        b1.setEnabled(true);
+        b2.setEnabled(true);
+        b3.setEnabled(true);
+        c1.setEnabled(true);
+        c2.setEnabled(true);
+        c3.setEnabled(true);
+    }
+    public String getA1() {
+        return a1.getText();
+    }
+
+    public String getA2() {
+        return a2.getText();
+    }
+
+    public String getA3() {
+        return a3.getText();
+    }
+
+    public String getB1() {
+        return b1.getText();
+    }
+
+    public String getB2() {
+        return b2.getText();
+    }
+
+    public String getB3() {
+        return b3.getText();
+    }
+
+    public String getC1() {
+        return c1.getText();
+    }
+
+    public String getC2() {
+        return c2.getText();
+    }
+
+    public String getC3() {
+        return c3.getText();
+    }
 }

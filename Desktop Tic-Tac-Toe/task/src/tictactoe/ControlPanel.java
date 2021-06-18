@@ -6,12 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControlPanel extends JPanel {
-    private static int player1Count = 0;
-    private static int player2Count = 0;
-    private static int startResetCount = 0;
-    private JButton player1 = new JButton();
-    private JButton player2 = new JButton();
-    private JButton startReset = new JButton();
+    private static JButton player1 = new JButton();
+    private static JButton player2 = new JButton();
+    private static JButton startReset = new JButton();
 
     public ControlPanel(){
         setPreferredSize(new Dimension(600,35));
@@ -22,31 +19,33 @@ public class ControlPanel extends JPanel {
         player1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                player1Count++;
-                choosePlayer(player1, player1Count);
+                choosePlayer(player1);
 
             }
         });
-        choosePlayer(player1, player1Count);
+        choosePlayer(player1);
         add(player1); //count starts from 0 aka X
 
         startReset.setName("ButtonStartReset");
         startReset.setFocusPainted(false);
         startReset.setText("Start");
+        //startReset button function
         startReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 startReset(startReset);
-                startResetCount++;
+                JLabel status = Status.getStatus();
+                //AI v AI
                 if(player1.getText().equals("Robot") && player2.getText().equals("Robot")){
                     Board p = TicTacToe.getP();
                     p.DISABLEALL();
-
                     EasyAI.AIvsAI();
-
                 }
+                //AI v Human
                 else if(player1.getText().equals("Robot")){
+                    status.setText("The turn of " + player1.getText() + " Player (X)");
                     EasyAI.opponentAI("X");
+                    status.setText("The turn of " + player2.getText() + " Player (O)");
                     Count.addCount();
                 }
 
@@ -59,52 +58,60 @@ public class ControlPanel extends JPanel {
         player2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                player2Count++;
-                choosePlayer(player2, player2Count);
+                choosePlayer(player2);
             }
         });
-        choosePlayer(player2, player2Count);
+        choosePlayer(player2);
         add(player2); //count starts from 1 aka O
-
-
     }
 
-    private void choosePlayer(JButton player, int playerCount){
-        if(playerCount % 2 == 0){
-            player.setText("Human");
-            humanPlays(player.getName());
-        }else{
+    public static void choosePlayer(JButton player){
+        if(player.getText().equals("Human")){
             player.setText("Robot");
             computerPlays(player.getName());
+        }else{
+            player.setText("Human");
+            humanPlays(player.getName());
         }
     }
+    //startReset button function
     private void startReset(JButton startReset){
         JLabel status = Status.getStatus();
         Board p = TicTacToe.getP();
-        if(startResetCount % 2 != 0) {
+        //To Reset
+        if(startReset.getText().equals("Reset")) {
             //When reset
             Count.setCount(0);
             player1.setEnabled(true);
             player2.setEnabled(true);
-            player1Count = 0;
-            player2Count = 0;
+            p.DISABLEALL();
+
             startReset.setText("Start");
             player1.setText("Human");
             player2.setText("Human");
             Button.setAiPlays(false, " ");
             p.RESET();
+            //change status
             status.setText("Game is not started");
-        }else{
+        }
+        //To start
+        else if(startReset.getText().equals("Start")){
             //when start
             player1.setEnabled(false);
             player2.setEnabled(false);
             p.ENABLE();
             startReset.setText("Reset");
-            status.setText("Game in progress");
+            //change status
+            if(Count.getCount() % 2 == 0) {
+                status.setText("The turn of " + player1.getText() + " Player (X)");
+            }else{
+                status.setText("The turn of " + player2.getText() + " Player (O)");
+            }
+            Button.checkStatus();
         }
     }
 
-    public void computerPlays(String playerName){
+    public static void computerPlays(String playerName){
         //for 1 AI
         if(playerName.equals("ButtonPlayer1")){
             Button.setAiPlays(true, "X");
@@ -113,7 +120,7 @@ public class ControlPanel extends JPanel {
             Button.setAiPlays(true, "O");
         }
     }
-    public void humanPlays(String playerName){
+    public static void humanPlays(String playerName){
         if(playerName.equals("ButtonPlayer1")){
             Button.setAiPlays(false, "O");
         }
@@ -122,15 +129,15 @@ public class ControlPanel extends JPanel {
         }
     }
 
-    public JButton getPlayer1() {
+    public static JButton getPlayer1() {
         return player1;
     }
 
-    public JButton getPlayer2() {
+    public static JButton getPlayer2() {
         return player2;
     }
 
-    public JButton getStartReset(){
+    public static JButton getStartReset(){
         return startReset;
     }
 }

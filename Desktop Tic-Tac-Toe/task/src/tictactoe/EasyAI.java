@@ -16,7 +16,8 @@ public class EasyAI {
     //includes count
     public static void AIvsAI(){
         JLabel status = Status.getStatus();
-        while(status.getText().equals("Game in progress")) {
+        while(!status.getText().equals("The Robot Player (X) wins") ||
+                !status.getText().equals("The Robot Player (O) wins")) {
             if(Count.getCount() % 2 == 0) {
                 EasyAI.opponentAI("X");
                 Count.addCount();

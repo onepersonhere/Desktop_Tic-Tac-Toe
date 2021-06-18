@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Button extends JButton {
+    private static boolean aiPlays = false;
+    private static String aiSymbol;
     public Button(String buttonName, String coord){
         setName(buttonName);
         setFocusPainted(false);
@@ -21,16 +23,39 @@ public class Button extends JButton {
                     setText("X");
                     checkStatus();
                     Count.addCount();
+                    opponent();
                 }
                 if(getText().equals(" ") && count % 2 != 0){
                     setText("O");
                     checkStatus();
                     Count.addCount();
+                    opponent();
                 }
+
             }
         });
     }
-    private void checkStatus(){
+    private void opponent(){
+        //opponent(AI)
+        if(aiPlays && aiSymbol.equals("X")){
+            EasyAI.opponentAI("X");
+            checkStatus();
+            Count.addCount();
+        }
+        if(aiPlays && aiSymbol.equals("O")){
+            EasyAI.opponentAI("O");
+            checkStatus();
+            Count.addCount();
+        }
+    }
+
+    public static void setAiPlays(boolean aiPlays, String aiSymbol) {
+        Button.aiPlays = aiPlays;
+        Button.aiSymbol = aiSymbol;
+    }
+
+    //check if win
+    public static void checkStatus(){
         JLabel status = Status.getStatus();
         Board p = TicTacToe.getP();
 

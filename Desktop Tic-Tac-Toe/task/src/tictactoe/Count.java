@@ -16,9 +16,9 @@ public class Count {
     public static void addCount(){
         JLabel status = Status.getStatus();
         Board p = TicTacToe.getP();
-
         Count.count += 1;
-        if(count == 9){
+        System.out.println(count);
+        if(count >= 9){
             status.setText("Draw");
         }
     }

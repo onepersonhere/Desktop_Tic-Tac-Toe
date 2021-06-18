@@ -9,10 +9,5 @@ public class ApplicationRunner {
         new TicTacToe();
 
 
-        //compare char at each button -> get`Button`
-
-
-        //once win or draw -> DISABLEALL
-        //enable again after pressing reset
     }
 }

@@ -48,36 +48,6 @@ public class Board extends JPanel {
         c2.setEnabled(false);
         c3.setEnabled(false);
     }
-    public void DISABLEOCUPPIED(){
-        if(!a1.getText().equals(" ")){
-            a1.setEnabled(false);
-        }
-        if(!a2.getText().equals(" ")){
-            a2.setEnabled(false);
-        }
-        if(!a3.getText().equals(" ")){
-            a3.setEnabled(false);
-        }
-        if(!b1.getText().equals(" ")){
-            b1.setEnabled(false);
-        }
-        if(!b2.getText().equals(" ")){
-            b2.setEnabled(false);
-        }
-        if(!b3.getText().equals(" ")){
-            b3.setEnabled(false);
-        }
-        if(!c1.getText().equals(" ")){
-            c1.setEnabled(false);
-        }
-        if(!c2.getText().equals(" ")){
-            c2.setEnabled(false);
-        }
-        if(!c3.getText().equals(" ")){
-            c3.setEnabled(false);
-        }
-
-    }
     public void ENABLE(){
         a1.setEnabled(true);
         a2.setEnabled(true);
@@ -123,5 +93,41 @@ public class Board extends JPanel {
 
     public String getC3() {
         return c3.getText();
+    }
+
+    public void setA1(String text) {
+        a1.setText(text);
+    }
+
+    public void setA2(String text) {
+        a2.setText(text);
+    }
+
+    public void setA3(String text) {
+        a3.setText(text);
+    }
+
+    public void setB1(String text) {
+        b1.setText(text);
+    }
+
+    public void setB2(String text) {
+        b2.setText(text);
+    }
+
+    public void setB3(String text) {
+        b3.setText(text);
+    }
+
+    public void setC1(String text) {
+        c1.setText(text);
+    }
+
+    public void setC2(String text) {
+        c2.setText(text);
+    }
+
+    public void setC3(String text) {
+        c3.setText(text);
     }
 }

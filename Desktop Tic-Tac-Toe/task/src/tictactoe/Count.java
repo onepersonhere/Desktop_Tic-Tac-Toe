@@ -22,4 +22,5 @@ public class Count {
             status.setText("Draw");
         }
     }
+    //set status, with reference to getText of obj and obj Symbol
 }

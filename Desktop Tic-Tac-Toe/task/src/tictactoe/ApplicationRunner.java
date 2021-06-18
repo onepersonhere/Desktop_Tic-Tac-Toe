@@ -8,6 +8,5 @@ public class ApplicationRunner {
 
         new TicTacToe();
 
-
     }
 }

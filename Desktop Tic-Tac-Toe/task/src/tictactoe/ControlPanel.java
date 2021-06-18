@@ -11,6 +11,7 @@ public class ControlPanel extends JPanel {
     private static int startResetCount = 0;
     private JButton player1 = new JButton();
     private JButton player2 = new JButton();
+    private JButton startReset = new JButton();
 
     public ControlPanel(){
         setPreferredSize(new Dimension(600,35));
@@ -29,7 +30,6 @@ public class ControlPanel extends JPanel {
         choosePlayer(player1, player1Count);
         add(player1); //count starts from 0 aka X
 
-        JButton startReset = new JButton();
         startReset.setName("ButtonStartReset");
         startReset.setFocusPainted(false);
         startReset.setText("Start");
@@ -120,5 +120,17 @@ public class ControlPanel extends JPanel {
         if(playerName.equals("ButtonPlayer2")){
             Button.setAiPlays(false, "X");
         }
+    }
+
+    public JButton getPlayer1() {
+        return player1;
+    }
+
+    public JButton getPlayer2() {
+        return player2;
+    }
+
+    public JButton getStartReset(){
+        return startReset;
     }
 }
